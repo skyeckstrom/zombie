@@ -68,6 +68,8 @@ class Access
     serialized = serialized.join(",") if serialized.constructor == Array
     for cookie in serialized.split(/,(?=[^;,]*=)|,$/)
       cookie = Cookie.parse(cookie)
+      if !cookie
+        continue
       cookie.domain ||= @domain
       cookie.path   ||= Tough.defaultPath(@path)
       # Delete cookie before setting it, so we only store one cookie (per
